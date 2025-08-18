@@ -32,10 +32,58 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+          # Создаем директорию если не существует
+          mkdir -p /var/www/demo2-corporate-services-website
           cd /var/www/demo2-corporate-services-website
-          git pull origin main
+          
+          # Клонируем или обновляем репозиторий
+          if [ ! -d ".git" ]; then
+            git clone https://github.com/tagsmith-org/demo2-corporate-services-website.git .
+          else
+            git pull origin main
+          fi
+          
+          # Устанавливаем Node.js если не установлен
+          if ! command -v node &> /dev/null; then
+            curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+            apt-get install -y nodejs
+          fi
+          
+          # Устанавливаем зависимости и собираем
           npm ci
           npm run build
+          
+          # Копируем файлы из dist в корень
           cp -r dist/* .
           rm -rf dist
-          sudo systemctl reload nginx
+          
+          # Устанавливаем правильные права
+          chown -R www-data:www-data /var/www/demo2-corporate-services-website
+          chmod -R 755 /var/www/demo2-corporate-services-website
+          
+          # Настраиваем nginx если не настроен
+          if [ ! -f "/etc/nginx/sites-enabled/demo2.websmith-shop.com" ]; then
+            cat > /etc/nginx/sites-available/demo2.websmith-shop.com << 'NGINX_EOF'
+          server {
+              listen 80;
+              server_name demo2.websmith-shop.com;
+              
+              root /var/www/demo2-corporate-services-website;
+              index index.html;
+              
+              location / {
+                  try_files $uri $uri/ /index.html;
+              }
+              
+              location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+                  expires 1y;
+                  add_header Cache-Control "public, immutable";
+              }
+          }
+          NGINX_EOF
+          
+          ln -sf /etc/nginx/sites-available/demo2.websmith-shop.com /etc/nginx/sites-enabled/
+          fi
+          
+          # Перезагружаем nginx
+          nginx -t && systemctl reload nginx

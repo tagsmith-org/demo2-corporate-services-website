@@ -2,6 +2,20 @@
 
 A professional corporate services website built with Vue 3, TypeScript, and Tailwind CSS. This modern, responsive website showcases corporate services with a trustworthy and formal design theme.
 
+## 🚀 Quick Deploy
+
+### 1. Настройка GitHub Secrets
+В настройках репозитория (Settings → Secrets and variables → Actions) добавьте:
+- `HOST` - IP адрес сервера
+- `PORT` - SSH порт (обычно 22)
+- `USER` - имя пользователя на сервере
+- `SSH_KEY` - приватный SSH ключ
+
+### 2. Деплой
+Просто запушьте изменения в main ветку - автоматический деплой запустится!
+
+🌐 **Сайт будет доступен:** https://demo2.websmith-shop.com
+
 ## 🎨 Design Theme
 
 - **Primary Color**: #1E3A8A (Deep Blue)
