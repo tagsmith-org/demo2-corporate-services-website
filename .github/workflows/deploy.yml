@@ -53,6 +53,9 @@ jobs:
           npm ci
           npm run build
           
+          # Очищаем старые файлы
+          rm -rf *
+          
           # Копируем файлы из dist в корень
           cp -r dist/* .
           rm -rf dist
@@ -73,6 +76,13 @@ jobs:
               
               root /var/www/demo2-corporate-services-website;
               index index.html;
+              
+              # Очистка кэша для HTML файлов
+              location ~* \.html$ {
+                  add_header Cache-Control "no-cache, no-store, must-revalidate";
+                  add_header Pragma "no-cache";
+                  add_header Expires "0";
+              }
               
               location / {
                   try_files $uri $uri/ /index.html;
