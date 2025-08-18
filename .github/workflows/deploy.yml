@@ -57,6 +57,9 @@ jobs:
           cp -r dist/* .
           rm -rf dist
           
+          # Проверяем что файлы скопировались
+          ls -la
+          
           # Устанавливаем правильные права
           chown -R www-data:www-data /var/www/demo2-corporate-services-website
           chmod -R 755 /var/www/demo2-corporate-services-website
