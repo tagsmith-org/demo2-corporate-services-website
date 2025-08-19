@@ -1,4 +1,7 @@
 <template>
+  <!-- Demo Info Panel -->
+  <DemoInfoPanel :is-open="isDemoPanelOpen" @close="toggleDemoPanel" />
+
   <!-- Simple Navigation -->
   <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-lg z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +22,7 @@
             class="text-gray-700 hover:text-primary-800 font-medium transition-colors duration-300 cursor-pointer">Contact</a>
         </div>
         <div class="hidden md:block">
-          <button class="btn-primary">
+          <button @click="scrollToSection('contact')" class="btn-primary">
             Get Started
           </button>
         </div>
@@ -49,7 +52,7 @@
           <a href="#contact" @click.prevent="scrollToSection('contact'); isMobileMenuOpen = false"
             class="block px-3 py-2 text-gray-700 hover:text-primary-800 font-medium transition-colors duration-300">Contact</a>
           <div class="px-3 py-2">
-            <button class="btn-primary w-full">
+            <button @click="scrollToSection('contact'); isMobileMenuOpen = false" class="btn-primary w-full">
               Get Started
             </button>
           </div>
@@ -82,10 +85,10 @@
             sustainable growth and success.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="btn-secondary">
+            <button @click="scrollToSection('services')" class="btn-secondary">
               Explore Services
             </button>
-            <button
+            <button @click="scrollToSection('about')"
               class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-medium py-3 px-6 rounded-lg transition-all duration-300">
               Learn More
             </button>
@@ -149,7 +152,7 @@
               We are a leading corporate services firm with over 15 years of experience helping businesses achieve their
               strategic objectives.
             </p>
-            <button class="btn-primary">
+            <button @click="scrollToSection('services')" class="btn-primary">
               Learn More About Us
             </button>
           </div>
@@ -233,7 +236,8 @@
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-4">{{ service.title }}</h3>
             <p class="text-gray-600 mb-6">{{ service.description }}</p>
-            <button class="text-primary-800 font-medium hover:text-primary-900 transition-colors duration-300">
+            <button @click="scrollToSection('contact')"
+              class="text-primary-800 font-medium hover:text-primary-900 transition-colors duration-300">
               Learn More →
             </button>
           </div>
@@ -372,9 +376,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import DemoInfoPanel from '@/components/DemoInfoPanel.vue'
 
 onMounted(() => {
   console.log('HomeView mounted successfully!')
+  console.log('Initial demo panel state:', isDemoPanelOpen.value)
 })
 
 
@@ -427,6 +433,15 @@ const services = [
 
 // Mobile menu state
 const isMobileMenuOpen = ref(false)
+
+// Demo panel state
+const isDemoPanelOpen = ref(false)
+
+// Demo panel functions
+function toggleDemoPanel() {
+  console.log('Toggling demo panel...')
+  isDemoPanelOpen.value = !isDemoPanelOpen.value
+}
 
 // Navigation function
 function scrollToSection(sectionId: string) {
