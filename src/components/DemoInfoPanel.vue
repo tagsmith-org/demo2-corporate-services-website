@@ -108,6 +108,36 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- About This Demo -->
+                            <div class="mt-6 p-4 bg-white rounded-lg border border-blue-200">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-2">💡 About This Demo</h3>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><strong>Project:</strong> CorporatePro - Professional Corporate Services Website
+                                    </li>
+                                    <li><strong>Purpose:</strong> Showcase modern corporate website functionality with
+                                        Vue 3 and TypeScript</li>
+                                    <li><strong>Target:</strong> Professional services companies and consulting firms
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Demo Limitations -->
+                            <div class="mt-6 p-4 bg-white rounded-lg border border-orange-200">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-2">❗ Demo Limitations</h3>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><span class="text-red-500 mr-2">•</span><strong>No Real Contact:</strong>
+                                        Contact form doesn't actually send emails</li>
+                                    <li><span class="text-red-500 mr-2">•</span><strong>Demo Content:</strong> All
+                                        content is placeholder information</li>
+                                    <li><span class="text-red-500 mr-2">•</span><strong>No Backend:</strong> No
+                                        server-side functionality implemented</li>
+                                    <li><span class="text-red-500 mr-2">•</span><strong>No Database:</strong> No data
+                                        persistence or storage</li>
+                                    <li><span class="text-red-500 mr-2">•</span><strong>No Authentication:</strong> No
+                                        user login or admin panel</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
